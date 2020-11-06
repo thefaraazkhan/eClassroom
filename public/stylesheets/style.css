@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.head-section {
+  background: url("https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80");
+  min-height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+.head-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+nav ul {
+  list-style: none;
+}
+nav h2 {
+  color: white;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-left: 3rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+}
+
+.hero-text {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: calc(1rem + 1vw);
+  text-align: center;
+}
+
+/* register */
+
+.container {
+  background-color: #fff;
+  width: 400px;
+  padding: 16px;
+  margin: 1rem auto;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select {
+  background-color: #a9a9a9;
+  outline: none;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+.register:hover {
+  opacity: 5;
+}
+
+.form button {
+  background-color: #001f61;
+  border: 5px solid #001f61;
+  border-radius: 4px;
+  color: #fff;
+  display: block;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.form {
+  padding: 30px 40px;
+}
+
+.header {
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #f7f7f7;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+/* end of register */
+
+/* dash style */
+
+.dash-section {
+  margin: 1rem;
+  width: 100%;
+}
+
+.experiment-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.experiment {
+  flex-basis: 20rem;
+  background-color: black;
+  width: 20rem;
+  min-height: 10rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+}
+.experiment a {
+  display: block;
+  color: white;
+  font-weight: 600;
+}
+
+/* end dash style */

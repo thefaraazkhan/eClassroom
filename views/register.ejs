@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+</head>
+<body>
+    <%- include('partials/nav')%>
+	<div class="container">
+		<div class="header">
+			<h2>Registration</h2>
+			<hr>
+        
+        </div>
+		<form class="form" name="form" action="/register" method="POST" autocomplete="off" onsubmit="return validate()">
+			<label for="firstName">First Name:</label><br>
+			<input type="text" name="fname" maxlength="10" >
+			<br>
+       
+
+			<label for="lastName">Last Name:</label><br>
+			<input type="text" name="lname" maxlength="10" >
+			<br>
+       
+			<label for="ID">ID</label><br>
+			<input type="text" name="username" >
+			<br><br>
+            
+            <select name="type">
+                <option value="student">student</option>
+                <option value="teacher">teacher</option>
+            </select>
+
+            <label for="password">Password</label><br>
+			<input type="text" name="password" >
+            <br><br>
+            
+            
+            <button type="submit" class="register">Register</button>
+    	</form>
+
+
+</div>
+
+
+<script>
+function validate()                                    
+{ 
+    var fname = document.forms["form"]["fname"];               
+    var lname = document.forms["form"]["lname"];               
+    var ID = document.forms["form"]["ID"];  
+    var password =  document.forms["form"]["password"];  
+   
+    if (fname.value === "")                                  
+    { 
+        window.alert("Please enter your first name."); 
+        fname.focus(); 
+        return false; 
+    } 
+
+    if (lname.value === "")                                  
+    { 
+        window.alert("Please enter your last name."); 
+        lname.focus(); 
+        return false; 
+    } 
+   
+   
+    if (ID.value === "")                           
+    { 
+        window.alert("Please enter your ID number."); 
+        phone.focus(); 
+        return false; 
+    } 
+
+
+     if(password.value === "") {
+					alert("Enter Password");
+				    return false;
+				}
+   
+     return validate(); 
+}
+
+</script> 
+
+</body>
+
+</html>
