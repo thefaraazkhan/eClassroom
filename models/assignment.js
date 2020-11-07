@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 
 
 const assignmentSchema = new mongoose.Schema({
+    title: String,
+    details: String,
+    fileURL: String,
+    marks: Number,
+    dueDate: Date,
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User'
-    },
-    assignTo: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User'
     },
@@ -16,4 +17,4 @@ const assignmentSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('User', assignmentSchema);
+module.exports = mongoose.model('Assignment', assignmentSchema);
