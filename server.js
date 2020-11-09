@@ -6,7 +6,7 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const LocalStrat = require('passport-local').Strategy;
 const User = require('./models/user');
-const fileUpload = require('express-fileupload');
+
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -19,12 +19,6 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: false},
   store: new MongoStore({ mongooseConnection: db.connection })
-}));
-app.use(fileUpload({
-  useTempFiles : true,
-  tempFileDir : '/tmp/',
-  safeFileNames: true,
-  preserveExtension: true
 }));
 
 // auth configs

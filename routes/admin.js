@@ -3,35 +3,37 @@ const { response } = require('express');
 const passport = require('passport');
 const Assignment = require('../models/assignment');
 const User = require('../models/user');
-const cloudinary = require('cloudinary').v2
-const path = require('path');
-cloudinary.config({ 
-    cloud_name: 'dxl9keibc', 
-    api_key: '111434914861974', 
-    api_secret: 'JO3Vw8qpHgIe1StHGtQOEobx66Y' 
-  });
+const multer = require('multer');
+const path = require('path')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+  }
+})
+
+const upload = multer({ storage: storage });
 
 router.get('/addproject', (req, res)=>{
     res.render("add-project")
 });
 
 
-router.post('/addproject', (req, res)=>{
+router.post('/addproject', upload.single('file') ,async (req, res)=>{
 
-    cloudinary.uploader.upload(req.files.file.tempFilePath,  { resource_type: "auto" }, function(error, result) { 
-        if(error){
-            console.log(error);
-        }
-        console.log(result);
-        Assignment.create({
+
+        await Assignment.create({
             title: req.body.title,
             details: req.body.detail,
-            fileURL: result.url,
+            fileURL: '/uploads/' + req.file.filename,
             marks: req.body.mark,
             dueDate: new Date(req.body.due_date),
             createdBy: req.user._id,
         });
-     });    
+        res.send('file uploaded');
 });
 
 module.exports = router;
