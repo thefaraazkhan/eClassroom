@@ -5,8 +5,17 @@ const assignmentSchema = new mongoose.Schema({
     title: String,
     details: String,
     fileURL: String,
+    completedFile: String,
+    isCompleted: {
+        type: Boolean,
+        default: false,
+    },
+    completedBy: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'
+    },
     marks: Number,
-    dueDate: Date,
+    dueDate: String,
     createdBy: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User'

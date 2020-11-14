@@ -15,24 +15,31 @@
         </div>
 		<form class="form" name="form" action="/register" method="POST" autocomplete="off" onsubmit="return validate()">
 			<label for="firstName">First Name:</label><br>
-			<input type="text" name="fname" maxlength="10" >
+			<input type="text" name="firstName" maxlength="10" >
 			<br>
        
 
 			<label for="lastName">Last Name:</label><br>
-			<input type="text" name="lname" maxlength="10" >
+			<input type="text" name="lastName" maxlength="10" >
 			<br>
        
-			<label for="ID">ID</label><br>
+			<label for="ID">Your ID:</label><br>
 			<input type="text" name="username" >
 			<br><br>
             
-            <select name="type">
+            <!-- <select name="type">
+                <label for="type">User:</label><br>
                 <option value="student">student</option>
                 <option value="teacher">teacher</option>
+            </select> -->
+
+            <label>Type:</label><br>
+            <select type = "dropdown" name="type">
+            <option value = "student">student</option>
+            <option value = "teacher">teacher</option><br>
             </select>
 
-            <label for="password">Password</label><br>
+            <label for="password">Password:</label><br>
 			<input type="text" name="password" >
             <br><br>
             

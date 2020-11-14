@@ -12,9 +12,12 @@
 
     <section class="dash-section">
         <div class="experiment-list">
+
+            <% assignments.forEach((assignment, i)=>{ %>
             <div class="experiment">
-                <a href="#">Experiment 1</a> 
+                <a href="/aassignment/<%= assignment._id %>"><%= assignment.title %></a> 
             </div>
+            <% }); %>
         </div>
     </section>
 </body>

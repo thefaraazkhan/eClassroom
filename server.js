@@ -6,7 +6,7 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const LocalStrat = require('passport-local').Strategy;
 const User = require('./models/user');
-
+const check = require('./middleware/check');
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -34,7 +34,7 @@ passport.deserializeUser(User.deserializeUser());
 //routes
 
 app.use('/', require('./routes/index'));
-app.use('/admin', require('./routes/admin'));
+app.use('/admin', check.isLoggedin, check.isTeacher ,require('./routes/admin'));
 
 
 

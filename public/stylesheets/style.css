@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Poppins:wght@400;700&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* font-family:  Merriweather', serif, 'Poppins', sans-serif; */
 }
 
 .head-section {
@@ -69,6 +72,7 @@ nav ul li a {
   width: 400px;
   padding: 16px;
   margin: 1rem auto;
+
 }
 
 input[type="text"]:focus,
@@ -158,6 +162,7 @@ select {
 	margin: auto;
     width: 80%;
     background-color: #f4f4f4;
+    
 } 
 
 .details{

@@ -1,0 +1,49 @@
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/new.css">
+</head>
+<body>
+    <div class="container">
+        <div class="table">
+          <table>
+        <div class="table-header">
+            <thead>
+            <tr>
+             <div class="header__item"><th>Sr.No</th></div>
+             <div class="header__item"><th>Title</th></div>
+             <div class="header__item"><th>Due Date</th></div>
+             <div class="header__item"><th>Student Name</th></div>
+             <div class="header__item"><th>Submitted File</th></div>
+            </thead>
+        </div>
+
+        <div class="table-content">
+        <tbody>
+          <div class="table-row">		
+    
+            <% assignments.forEach((assignment, i)=>{ %>
+                <tr>
+                <div class="table-data"> <td><%= i + 1 %></td> </div>    
+                <div class="table-data"> <td><%= assignment.title %></td> </div>    
+                <div class="table-data"> <td><%= formatDate(assignment.dueDate) %></td> </div>    
+                <div class="table-data"> <td><%= assignment.completedBy.firstName + ' ' + assignment.completedBy.lastName %></td> </div>   
+                <div class="table-data"> <td><a href="<%= assignment.completedFile %>" download> Completed File </a></td> </div>    
+
+                </tr>
+            <% }); %>
+          </div>
+
+        </tbody>
+        </div>  
+
+        </table>
+        </div>
+        </div>
+</body>
+</html>
+

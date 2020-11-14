@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <%- include('partials/nav')%>
+  <div class="experiment-list">
+
+    <% assignments.forEach((assignment, i)=>{ %>
+    <div class="experiment">
+        <a href="/admin/project/<%= assignment._id %>"><%= assignment.title %></a> 
+    </div>
+    <% }); %>
+</div>
+
+</body>
+
+</html>
+
+
