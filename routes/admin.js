@@ -53,6 +53,20 @@ router.get('/project/:id', async (req, res)=>{
   });
 });
 
+router.get('/deleteprojects', async (req, res)=>{
+  const assignments = await Assignment.find({createdBy: req.user._id});
+  res.render("delete-projects", {
+    assignments,
+  });
+});
+
+
+router.get('/project/:id/delete', async (req, res)=>{
+  await Assignment.findOneAndDelete({_id: req.params.id});
+  await CompletedAssignment.findOneAndDelete({parentAssignment: req.params.id});
+  res.redirect("/");
+});
+
 
 router.post('/addproject', upload.single('file') ,async (req, res)=>{
 
@@ -79,5 +93,7 @@ router.post('/:id/givemarks', async (req, res)=>{
   res.redirect("/admin/submitted-projects");
 
 });
+
+
 
 module.exports = router;
