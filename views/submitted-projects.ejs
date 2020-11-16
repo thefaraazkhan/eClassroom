@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/new.css">
 </head>
 <body>
+  
     <div class="container">
         <div class="table">
           <table>
@@ -19,6 +20,7 @@
              <div class="header__item"><th>Due Date</th></div>
              <div class="header__item"><th>Student Name</th></div>
              <div class="header__item"><th>Submitted File</th></div>
+             <div class="header__item"><th>Give Marks</th></div>
             </thead>
         </div>
 
@@ -29,11 +31,16 @@
             <% assignments.forEach((assignment, i)=>{ %>
                 <tr>
                 <div class="table-data"> <td><%= i + 1 %></td> </div>    
-                <div class="table-data"> <td><%= assignment.title %></td> </div>    
-                <div class="table-data"> <td><%= formatDate(assignment.dueDate) %></td> </div>    
+                <div class="table-data"> <td><%= assignment.parentAssignment.title %></td> </div>    
+                <div class="table-data"> <td><%= formatDate(assignment.parentAssignment.dueDate) %></td> </div>    
                 <div class="table-data"> <td><%= assignment.completedBy.firstName + ' ' + assignment.completedBy.lastName %></td> </div>   
                 <div class="table-data"> <td><a href="<%= assignment.completedFile %>" download> Completed File </a></td> </div>    
-
+                <div class="table-data"> <td>
+                  <% if(assignment.givenMarks > 0){ %>
+                      <%= assignment.givenMarks %>
+                   <% }else{ %>
+                    <form action="/admin/<%= assignment._id %>/givemarks" style="display: inline;" method="POST" /> <input type="number" min="1" max="<%= assignment.parentAssignment.marks %>" name="marks" required /> <input type="submit" value="submit"> </form>
+                    <% } %>    / <%= assignment.parentAssignment.marks %> </td> </div>   
                 </tr>
             <% }); %>
           </div>

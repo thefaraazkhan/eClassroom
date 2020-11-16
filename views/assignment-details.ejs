@@ -28,10 +28,10 @@
          <p>Marks: <%= assignment.marks %></p>
      </div>
     
-   
+     <% if(!isSubmitted){ %>
      <form action="/project/submit/<%= assignment._id %>" method="POST" enctype="multipart/form-data">
         <div class="button upload">
-            <p>Upload</p> <input type="file" name="file"> 
+            <p>Upload</p> <input type="file" name="file" required> 
         </div> 
         <br>
     
@@ -39,7 +39,9 @@
         <input class="button" type="submit" 
         name="submit" value="Submit">
      </form>
-             
+    <% }else{ %>
+       Given Marks: <%= completedAssignment.givenMarks > 0 ? completedAssignment.givenMarks : `pending` %> 
+    <% } %>
     </div>    
 </body>
 </html>

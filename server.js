@@ -7,6 +7,7 @@ const passport = require('passport');
 const LocalStrat = require('passport-local').Strategy;
 const User = require('./models/user');
 const check = require('./middleware/check');
+const { response } = require('express');
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -30,6 +31,10 @@ passport.use(new LocalStrat(User.authenticate()));
 passport.serializeUser(User.serializeUser()); 
 passport.deserializeUser(User.deserializeUser()); 
 
+app.use((req, res, next)=>{
+  res.locals.user = req.user || '';
+  next();
+});
 
 //routes
 

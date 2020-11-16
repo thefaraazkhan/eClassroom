@@ -11,11 +11,25 @@
     <%- include('partials/nav')%>
 
     <section class="dash-section">
+        <h1>Pending Assignments</h1>
+        <hr> 
         <div class="experiment-list">
-
-            <% assignments.forEach((assignment, i)=>{ %>
+            
+            
+                <% pendingAssignments.forEach((assignment, i)=>{ %>
+                <div class="experiment">
+                    <a href="/aassignment/<%= assignment._id %>"><%= assignment.title %></a> 
+                </div>
+                <% }); %>
+        
+        </div>
+        <h1>Submitted Assignments</h1>
+        <hr>
+        <div class="experiment-list">
+            
+            <% completedAssignments.forEach((assignment, i)=>{ %>
             <div class="experiment">
-                <a href="/aassignment/<%= assignment._id %>"><%= assignment.title %></a> 
+                <a href="/aassignment/<%= assignment.parentAssignment._id %>"><%= assignment.parentAssignment.title %></a> 
             </div>
             <% }); %>
         </div>

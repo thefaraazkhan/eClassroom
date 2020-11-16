@@ -1,8 +1,17 @@
 <nav>
+    <%if(!user.username){%>
     <h2>MiniProject</h2>
+    <% } %>
+    <%if(user.username){%>
+        <h2>Hi, <%= user.firstName %></h2>
+        <% } %>
     <ul>
+        <%if(!user.username){%>
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
+        <% } %>
+        <%if(user.username){%>
         <li><a href="/logout">Logout</a></li>
+        <% } %>
     </ul>
 </nav>
