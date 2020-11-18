@@ -95,5 +95,16 @@ router.post('/:id/givemarks', async (req, res)=>{
 });
 
 
+// router.get("/assignment-details", async (req, res)=>{
+
+//   function formatDate(date){
+//     let d = new Date(date);
+//     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
+//   }
+
+//   res.render('assignment-details', {
+//     formatDate,
+//   });
+// });
 
 module.exports = router;

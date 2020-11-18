@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
+    <%- include('partials/nav')%>
+
     <div class="container">
         <div class="header">
             <h1><%= assignment.title %></h1>
@@ -21,7 +23,7 @@
     </div>
 
      <div class="due-date">
-	    	<p>Due Date: <%= assignment.dueDate %></p>
+	    	<p>Due Date: <%=  assignment.dueDate %></p>
      </div>
      
      <div class="mark">
@@ -30,11 +32,10 @@
     
      <% if(!isSubmitted){ %>
      <form action="/project/submit/<%= assignment._id %>" method="POST" enctype="multipart/form-data">
-        <div class="button upload">
+        <div class="upload">
             <p>Upload</p> <input type="file" name="file" required> 
         </div> 
         <br>
-    
     
         <input class="button" type="submit" 
         name="submit" value="Submit">
@@ -42,6 +43,7 @@
     <% }else{ %>
        Given Marks: <%= completedAssignment.givenMarks > 0 ? completedAssignment.givenMarks : `pending` %> 
     <% } %>
+
     </div>    
 </body>
 </html>

@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/add-new-project.css">
 
     <title>Document</title>
 </head>
 <body>
+
     <div class="container">
         <div class="header">
             <h1>Add new project</h1>
@@ -16,30 +17,30 @@
     <div class="title">
         <p>Title:</p><input type="text" name="title">
     </div>
+    <br>
     <div class="details">
-        <textarea name="detail" cols="30" rows="10" placeholder="Enter assignment"></textarea>
+        <p>Details:</p><br>
+        <textarea name="detail" placeholder="Enter Assignment Details"></textarea>
     </div>
-
+    <br>
     <div class="reference">
         <p>Reference</p> <input type="file" name="file"> 
     </div>
-
+    <br>
      <div class="due-date">
             <p>Due Date: </p>
             <input type="date" name="due_date">
      </div>
-     
+     <br>
      <div class="mark">
         <p>Marks:</p>
         <input type="number" name="marks">
-
      </div>
 	    
 
 	<input class="button" type="submit" 
     name="submit" value="Submit">
-    
-       
+          
 </form>     
     </div>    <!--container-->
 </body>

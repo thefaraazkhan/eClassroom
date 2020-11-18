@@ -7,7 +7,7 @@
 }
 
 body {
-  background: black;
+  background: #OOO ;
   font-family: 'Open Sans', sans-serif;
 
 }
@@ -17,11 +17,11 @@ table {
   border-collapse: collapse;
   margin: 1em auto;
   align-items: center;
-
+ 
 }
 th {
   border-bottom: 1px solid #364043;
-  color: #E2B842;
+  color: #fff;
   font-size: 0.85em;
   font-weight: 600;
   padding: 0.5em 1em;
@@ -45,6 +45,17 @@ tbody tr:hover {
 td a{
   color: white;;
 }
+
+.container {
+	padding-top: 25px;
+}
+
+.header{
+	text-align: center;
+}
+
+
+
 
 /* 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
