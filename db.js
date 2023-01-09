@@ -1,18 +1,31 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-async function connectdb(){
+const DB_URL = process.env.DB_URL || "mongodb://localhost:27017/assignmentEval";
 
- await mongoose.connect('mongodb://admin:admin@cluster0-shard-00-00.hyneq.mongodb.net:27017,cluster0-shard-00-01.hyneq.mongodb.net:27017,cluster0-shard-00-02.hyneq.mongodb.net:27017/miniproject?ssl=true&replicaSet=atlas-w8jtig-shard-0&authSource=admin&retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-});
+// async function connectdb() {
+//   await mongoose.connect(DB_URL, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false,
+//     useCreateIndex: true,
+//   });
 
-console.log('database connected');
+//   console.log("database connected");
+// }
+// connectdb();
 
-}
-
-connectdb();
+mongoose
+  .connect(DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MONGO CONNECTION OPEN!!!");
+  })
+  .catch((err) => {
+    console.log("OH NO MONGO CONNECTION ERROR!!!!");
+    console.log(err);
+  });
 
 module.exports = mongoose;
