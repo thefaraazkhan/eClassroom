@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 
-    <title>Document</title>
+  <title>Document</title>
 </head>
-<body>
-    <%- include('partials/nav')%>
 
-    <div class="container">
-        <div class="header">
-            <h1><%= assignment.title %></h1>
-        </div>
+<body>
+  <%- include('partials/nav')%>
+
+  <div class="container">
+    <div class="header">
+      <h1><%= assignment.title %></h1>
+    </div>
     <div class="details">
-        <p>Detail: <%= assignment.details %></p>
+      <p>Detail: <%= assignment.details %></p>
     </div>
 
     <div class="reference">
-        <p>Reference: <a href="<%= assignment.fileURL %>"><%= fileName %></a></p>
+      <p>Reference: <a href="<%= assignment.fileURL %>"><%= fileName %></a></p>
     </div>
 
-     <div class="due-date">
-	    	<p>Due Date: <%= assignment.dueDate %></p>
-     </div>
-     
-     <div class="mark">
-         <p>Marks: <%= assignment.marks %></p>
-     </div>
-             
-    </div>    
+    <div class="due-date">
+      <p>Due Date: <%= formatDate(assignment.dueDate)  %></p>
+    </div>
+
+    <div class="mark">
+      <p>Marks: <%= assignment.marks %></p>
+    </div>
+
+  </div>
 </body>
+
 </html>
