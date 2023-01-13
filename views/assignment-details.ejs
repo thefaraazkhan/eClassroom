@@ -21,7 +21,7 @@
     </div>
 
     <div class="reference">
-      <p>Reference: <a href="<%= assignment.fileURL %>"><%= fileName %></a></p>
+      <p>Reference: <a href="https://<%= assignment.fileURL %>"><%= fileName %></a></p>
     </div>
 
     <div class="due-date">
@@ -41,13 +41,17 @@
 
       <input class="button" type="submit" name="submit" value="Submit">
     </form>
-    <% } else if(formatDate(assignment.dueDate) < formatDate(new Date())) { %>
+    <% } else if(!isSubmitted && formatDate(assignment.dueDate) <= formatDate(new Date())) { %>
     <div class="upload">
       <p>Marks Obtained: <b>0 Marks</b> <span style="color: red;">(due date passed!)</span></p>
     </div>
-    <% } else{ %>
+    <% } else { %>
     <div class="upload">
+      <% if(completedAssignment) { %>
       <p>Marks Obtained: <%= completedAssignment.givenMarks > 0 ? completedAssignment.givenMarks : `pending` %></p>
+      <% } else { %>
+      <p>Marks Obtained: pending %></p>
+      <% } %>
     </div>
     <% } %>
 

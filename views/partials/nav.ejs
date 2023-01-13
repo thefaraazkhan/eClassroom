@@ -1,17 +1,18 @@
 <nav>
-    <%if(!user.username){%>
-    <h2>MiniProject</h2>
+  <% if(!user.username) { %>
+  <h2>MiniProject</h2>
+  <% } %>
+  <% if(user.username) { %>
+  <h2>Hi, <%= user.firstName %></h2>
+  <p><a href="/dash" style="color: white;text-decoration: none">Dash</a></p>
+  <% } %>
+  <ul>
+    <% if(!user.username) { %>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/register">Register</a></li>
     <% } %>
-    <%if(user.username){%>
-        <h2>Hi, <%= user.firstName %></h2>
-        <% } %>
-    <ul>
-        <%if(!user.username){%>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/register">Register</a></li>
-        <% } %>
-        <%if(user.username){%>
-        <li><a href="/logout">Logout</a></li>
-        <% } %>
-    </ul>
+    <% if(user.username) { %>
+    <li><a href="/logout">Logout</a></li>
+    <% } %>
+  </ul>
 </nav>
