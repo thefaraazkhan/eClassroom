@@ -1,47 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/add-new-project.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/add-new-project.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 
-    <title>Document</title>
+  <title>Document</title>
 </head>
-<body>
 
-    <div class="container">
-        <div class="header">
-            <h1>Add new project</h1>
-        </div>
- <form action="/admin/addproject" method="POST" enctype="multipart/form-data">
-    <div class="title">
-        <p>Title:</p><input type="text" name="title">
+<body>
+  <%- include('partials/nav')%>
+
+  <div class="container">
+    <div class="header">
+      <h1>Add new project</h1>
     </div>
-    <br>
-    <div class="details">
+    <form action="/admin/addproject" method="POST" enctype="multipart/form-data">
+      <div class="title">
+        <p>Title:</p><input type="text" name="title">
+      </div>
+      <br>
+      <div class="details">
         <p>Details:</p><br>
         <textarea name="detail" placeholder="Enter Assignment Details"></textarea>
-    </div>
-    <br>
-    <div class="reference">
-        <p>Reference</p> <input type="file" name="file"> 
-    </div>
-    <br>
-     <div class="due-date">
-            <p>Due Date: </p>
-            <input type="date" name="due_date">
-     </div>
-     <br>
-     <div class="mark">
+      </div>
+      <br>
+      <div class="reference">
+        <p>Reference</p> <input type="file" name="file">
+      </div>
+      <br>
+      <div class="due-date">
+        <p>Due Date: </p>
+        <input type="date" name="due_date">
+      </div>
+      <br>
+      <div class="mark">
         <p>Marks:</p>
         <input type="number" name="marks">
-     </div>
-	    
+      </div>
 
-	<input class="button" type="submit" 
-    name="submit" value="Submit">
-          
-</form>     
-    </div>    <!--container-->
+
+      <input class="button" type="submit" name="submit" value="Submit">
+
+    </form>
+  </div>
+  <!--container-->
 </body>
+
 </html>

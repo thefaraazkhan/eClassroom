@@ -7,16 +7,45 @@ const multer = require("multer");
 const path = require("path");
 const CompletedAssignment = require("../models/completed-assignment");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads/");
+// ***************************************************
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "public/uploads/");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+// ***************************************************
+
+// ********** Cloud Upload ***********
+const {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+} = require("@aws-sdk/client-s3");
+
+const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
-  },
+  region: bucketRegion,
 });
 
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+// ********** Cloud Upload ***********
 
 router.get("/addproject", (req, res) => {
   res.render("add-project");
@@ -53,7 +82,8 @@ router.get("/project/:id", async (req, res) => {
     let d = new Date(date);
     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
   }
-  let fileName = assignment.fileURL.split("/")[2];
+  let fileName = assignment.fileURL.split("/")[1];
+
   res.render("t-project-detail", {
     assignment,
     formatDate,
@@ -77,10 +107,34 @@ router.get("/project/:id/delete", async (req, res) => {
 });
 
 router.post("/addproject", upload.single("file"), async (req, res) => {
+  // console.log("req.body", req.body);
+  // console.log("req.file", req.file);
+
+  // ****************************************************************
+  const randomNum = Math.floor(Math.random() * 5000);
+  const fileName = req.file.originalname.split(" ").join("");
+  const randomImageName = `${randomNum}${req.user.firstName}-${fileName}`;
+  console.log(randomImageName);
+
+  // req.file.buffer is the actual image
+  const params = {
+    Bucket: bucketName,
+    Key: randomImageName,
+    Body: req.file.buffer,
+    ContentType: req.file.mimetype,
+  };
+
+  const command = await new PutObjectCommand(params);
+  s3.send(command);
+
+  const completedFileURL = "d31lyalmsd17xb.cloudfront.net/" + randomImageName;
+
+  // ****************************************************************
+
   await Assignment.create({
     title: req.body.title,
     details: req.body.detail,
-    fileURL: "/uploads/" + req.file.filename,
+    fileURL: completedFileURL,
     marks: Number(req.body.marks),
     dueDate: new Date(req.body.due_date),
     createdBy: req.user._id,
