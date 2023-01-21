@@ -1,0 +1,22 @@
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
+
+<div class="container">
+  <div class="m-2 p-1 border-bottom text-center">
+    <h1>Click to view assignment submissions</h1>
+  </div>
+  <div class="row">
+    <% assignments.forEach((assignment, i)=>{ %>
+    <div class="col-12 col-md-4 col-lg-3 mt-4">
+      <div class="card text-center ">
+        <div class="card-body">
+          <h5 class="card-title"><%= assignment.title %></h5>
+          <a href="/admin/submitted-projects/<%= assignment._id %>" class="btn btn-primary">View Submissions</a>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+</div>
+
+<%- include('partials/footer')%>

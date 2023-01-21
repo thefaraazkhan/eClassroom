@@ -1,26 +1,10 @@
 const router = require("express").Router();
-// const { response } = require('express');
 const passport = require("passport");
 const Assignment = require("../models/assignment");
 const User = require("../models/user");
 const multer = require("multer");
 const path = require("path");
 const CompletedAssignment = require("../models/completed-assignment");
-
-// ***************************************************
-
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "public/uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-
-// ***************************************************
 
 // ********** Cloud Upload ***********
 const {
@@ -58,13 +42,19 @@ router.get("/projects", async (req, res) => {
   });
 });
 
-router.get("/submitted-projects", async (req, res) => {
+router.get("/submitted-home", async (req, res) => {
+  const assignments = await Assignment.find({ createdBy: req.user._id });
+  res.render("submitted-home", {
+    assignments,
+  });
+});
+
+router.get("/submitted-projects/:id", async (req, res) => {
   const assignments = await CompletedAssignment.find({
-    createdBy: req.user._id,
+    parentAssignment: req.params.id,
   })
     .populate("parentAssignment completedBy")
     .exec();
-
   function formatDate(date) {
     let d = new Date(date);
     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
@@ -98,18 +88,16 @@ router.get("/deleteprojects", async (req, res) => {
   });
 });
 
-router.get("/project/:id/delete", async (req, res) => {
+router.post("/project/:id/delete", async (req, res) => {
   await Assignment.findOneAndDelete({ _id: req.params.id });
   await CompletedAssignment.findOneAndDelete({
     parentAssignment: req.params.id,
   });
-  res.redirect("/");
+  res.redirect("/admin/deleteprojects");
 });
 
 router.post("/addproject", upload.single("file"), async (req, res) => {
-  // console.log("req.body", req.body);
-  // console.log("req.file", req.file);
-
+  // adding file
   // ****************************************************************
   const randomNum = Math.floor(Math.random() * 5000);
   const fileName = req.file.originalname.split(" ").join("");
@@ -139,30 +127,21 @@ router.post("/addproject", upload.single("file"), async (req, res) => {
     dueDate: new Date(req.body.due_date),
     createdBy: req.user._id,
   });
-  res.redirect("/dash");
+  res.redirect("/admin/projects");
 });
 
 router.post("/:id/givemarks", async (req, res) => {
-  await CompletedAssignment.findOneAndUpdate(
+  const Completed = await CompletedAssignment.findOne({
+    _id: req.params.id,
+  });
+  const parentId = Completed.parentAssignment;
+  await CompletedAssignment.updateOne(
     { _id: req.params.id },
     {
       givenMarks: Number(req.body.marks),
     }
   );
-
-  res.redirect("/admin/submitted-projects");
+  res.redirect("/admin/submitted-projects/" + parentId);
 });
-
-// router.get("/assignment-details", async (req, res)=>{
-
-//   function formatDate(date){
-//     let d = new Date(date);
-//     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
-//   }
-
-//   res.render('assignment-details', {
-//     formatDate,
-//   });
-// });
 
 module.exports = router;
