@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const session = require("express-session");
@@ -7,8 +8,7 @@ const passport = require("passport");
 const LocalStrat = require("passport-local").Strategy;
 const User = require("./models/user");
 const check = require("./middleware/check");
-require("dotenv").config();
-// const { response } = require("express");
+const flash = require("connect-flash");
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -25,6 +25,8 @@ app.use(
   })
 );
 
+app.use(flash());
+
 // auth configs
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,6 +38,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.user = req.user || "";
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   next();
 });
 
@@ -44,7 +48,9 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/index"));
 app.use("/admin", check.isLoggedin, check.isTeacher, require("./routes/admin"));
 
-// app.listen(3000);
+app.all("*", (req, res) => {
+  res.render("error");
+});
 
 const PORT = process.env.PORT;
 

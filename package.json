@@ -1,17 +1,17 @@
 {
-  "name": "miniproject-main",
+  "name": "eclassroom",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
   },
-  "author": "faraz khan",
+  "author": "Faraaz khan",
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.354.0",
-    "cloudinary": "^1.23.0",
     "connect-mongo": "^3.2.0",
+    "connect-flash": "^0.1.1",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
