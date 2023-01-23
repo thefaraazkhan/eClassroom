@@ -1,97 +1,97 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Form</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
 
-</head>
-<body>
-    <%- include('partials/nav')%>
-	<div class="container">
-		<div class="header">
-			<h2>Registration</h2>
-			<hr>
-        
-        </div>
-		<form class="form" name="form" action="/register" method="POST" autocomplete="off" onsubmit="return validate()">
-			<label for="firstName">First Name:</label><br>
-			<input type="text" name="firstName" maxlength="10" >
-			<br>
-       
+<div class="container d-flex justify-content-center align-items-center mt-3 mb-2">
+  <div class="row flex-fill">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow">
+        <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title border-bottom pb-2 text-center">Register</h5>
+          <form action="/register" class="needs-validation" method="POST" novalidate>
+            <div class="mb-2">
+              <label class="form-label" for="username">Username</label>
+              <input class="form-control" type="text" name="username" id="username" required autofocus>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
 
-			<label for="lastName">Last Name:</label><br>
-			<input type="text" name="lastName" maxlength="10" >
-			<br>
-       
-			<label for="ID">Your ID:</label><br>
-			<input type="text" name="username" >
-			<br><br>
-            
-            <!-- <select name="type">
-                <label for="type">User:</label><br>
+            <div class="mb-2">
+              <label class="form-label" for="firstName">First Name:</label>
+              <input class="form-control" type="text" name="firstName" maxlength="10" required>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label" for="lastName">Last Name:</label>
+              <input class="form-control" type="text" name="lastName" maxlength="10" required>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label" for="email">Email:</label>
+              <input class="form-control" type="email" name="email" maxlength="35" required>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label" for="password">Password:</label>
+              <input class="form-control" type="password" name="password" maxlength="35" required>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label" for="type">Type:</label>
+              <select class="form-control" type="dropdown" name="type" required>
                 <option value="student">student</option>
-                <option value="teacher">teacher</option>
-            </select> -->
-
-            <label>Type:</label><br>
-            <select type = "dropdown" name="type">
-            <option value = "student">student</option>
-            <option value = "teacher">teacher</option><br>
-            </select>
-
-            <label for="password">Password:</label><br>
-			<input type="text" name="password" >
-            <br><br>
-            
-            
-            <button type="submit" class="register">Register</button>
-    	</form>
+                <option value="teacher">teacher</option><br>
+              </select>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
 
 
+            <div class="d-grid mt-4">
+              <button class="btn btn-success">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
 <script>
-function validate()                                    
-{ 
-    var fname = document.forms["form"]["fname"];               
-    var lname = document.forms["form"]["lname"];               
-    var ID = document.forms["form"]["ID"];  
-    var password =  document.forms["form"]["password"];  
-   
-    if (fname.value === "")                                  
-    { 
-        window.alert("Please enter your first name."); 
-        fname.focus(); 
-        return false; 
-    } 
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict'
 
-    if (lname.value === "")                                  
-    { 
-        window.alert("Please enter your last name."); 
-        lname.focus(); 
-        return false; 
-    } 
-   
-   
-    if (ID.value === "")                           
-    { 
-        window.alert("Please enter your ID number."); 
-        phone.focus(); 
-        return false; 
-    } 
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
 
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
 
-     if(password.value === "") {
-					alert("Enter Password");
-				    return false;
-				}
-   
-     return validate(); 
-}
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
 
-</script> 
-
-</body>
-
-</html>
+<%- include('partials/footer')%>

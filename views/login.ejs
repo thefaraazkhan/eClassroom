@@ -1,64 +1,59 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Form</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
 
-</head>
-<body>
-    <%- include('partials/nav')%>
-	<div class="container">
-		<div class="header">
-			<h2>login</h2>
-			<hr>
-        
+<div class="container d-flex justify-content-center align-items-center mt-4">
+  <div class="row flex-fill">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow">
+        <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="border-bottom pb-2 text-center">Login</h5>
+          <form action="/login" class="needs-validation" method="POST" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="username">Username</label>
+              <input class="form-control" type="text" name="username" id="username" required autofocus>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="password">Password</label>
+              <input class="form-control" type="password" name="password" id="password" required>
+              <div class="invalid-feedback">
+                Cannot be empty!
+              </div>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-success">Login</button>
+            </div>
+          </form>
         </div>
-		<form class="form" name="form" action="/login" method="POST" autocomplete="off" onsubmit="return validate()">
-			
-			<label for="ID">ID</label><br>
-			<input type="text" name="username" >
-			<br><br>
-         
-    
-            <label for="password">Password</label><br>
-			<input type="text" name="password" >
-            <br><br>
-            
-            
-            <button type="submit" class="register">Login</button>
-    	</form>
-
-
+      </div>
+    </div>
+  </div>
 </div>
 
-
 <script>
-function validate()                                    
-{ 
-           
-    var ID = document.forms["form"]["ID"];  
-    var password =  document.forms["form"]["password"];  
-   
-    
-    if (ID.value === "")                           
-    { 
-        window.alert("Please enter your ID number."); 
-        phone.focus(); 
-        return false; 
-    } 
+  (function() {
+    'use strict'
 
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
 
-     if(password.value === "") {
-					alert("Enter Password");
-				    return false;
-				}
-   
-     return validate(); 
-}
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
 
-</script> 
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
 
-</body>
-
-</html>
+<%- include('partials/footer')%>
