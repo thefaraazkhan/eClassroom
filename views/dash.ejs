@@ -1,41 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
 
-    <title>Document</title>
-</head>
-<body>
-    <%- include('partials/nav')%>
+<div class="d-flex align-items-center justify-content-center text-align-center flex-column" style="height: 80vh;">
+  <div class="header">
+    <h1 class="display-2 text-center">Welcome to eClassroom.</h1>
+  </div>
+  <div>
+    <a class="btn btn-dark  mt-3 p-3" href="/admin/projects" role="button">View Assignments</a>
+  </div>
+</div>
 
-    <section class="dash-section">
-        <h1>Pending Assignments</h1>
-        <br>
-        <!-- <hr>  -->
-        <div class="experiment-list">
-            
-            
-                <% pendingAssignments.forEach((assignment, i)=>{ %>
-                <div class="experiment">
-                    <a href="/aassignment/<%= assignment._id %>"><%= assignment.title %></a> 
-                </div>
-                <% }); %>
-        
-        </div>
-        <hr >
-        <h1>Submitted Assignments</h1>
-        <br>
-        <!-- <hr> -->
-        <div class="experiment-list">
-            
-            <% completedAssignments.forEach((assignment, i)=>{ %>
-            <div class="experiment">
-                <a href="/aassignment/<%= assignment.parentAssignment._id %>"><%= assignment.parentAssignment.title %></a> 
-            </div>
-            <% }); %>
-        </div>
-    </section>
-</body>
-</html>
+<%- include('partials/footer')%>

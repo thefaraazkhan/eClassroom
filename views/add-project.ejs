@@ -1,52 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylesheets/add-new-project.css">
-  <link rel="stylesheet" href="/stylesheets/style.css">
+<div class="container d-flex justify-content-center align-items-center mt-4">
+  <div class="row flex-fill">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="border-bottom pb-2 text-center">Add new project</h5>
+          <form action="/admin/addproject" method="POST" enctype="multipart/form-data">
 
-  <title>Document</title>
-</head>
+            <div class="mb-3">
+              <label class="form-label" for="title">Title:</label>
+              <input class="form-control" type="text" name="title" id="title" required autofocus>
+            </div>
 
-<body>
-  <%- include('partials/nav')%>
+            <div class="mb-3">
+              <label class="form-label" for="title">Details:</label>
+              <textarea class="form-control" name="detail" id="title" placeholder="Enter Assignment Details" required></textarea>
+            </div>
 
-  <div class="container">
-    <div class="header">
-      <h1>Add new project</h1>
+            <div class="mb-3">
+              <label class="form-label" for="file">Reference:</label>
+              <input class="form-control" type="file" name="file" id="file" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="due_date">Due Date:</label>
+              <input class="form-control" type="date" name="due_date" id="due_date" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="marks">Marks:</label>
+              <input class="form-control" type="number" name="marks" id="marks" required>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
     </div>
-    <form action="/admin/addproject" method="POST" enctype="multipart/form-data">
-      <div class="title">
-        <p>Title:</p><input type="text" name="title">
-      </div>
-      <br>
-      <div class="details">
-        <p>Details:</p><br>
-        <textarea name="detail" placeholder="Enter Assignment Details"></textarea>
-      </div>
-      <br>
-      <div class="reference">
-        <p>Reference</p> <input type="file" name="file">
-      </div>
-      <br>
-      <div class="due-date">
-        <p>Due Date: </p>
-        <input type="date" name="due_date">
-      </div>
-      <br>
-      <div class="mark">
-        <p>Marks:</p>
-        <input type="number" name="marks">
-      </div>
-
-
-      <input class="button" type="submit" name="submit" value="Submit">
-
-    </form>
   </div>
-  <!--container-->
-</body>
+</div>
 
-</html>
+
+<%- include('partials/footer')%>

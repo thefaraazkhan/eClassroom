@@ -10,28 +10,12 @@ const assignment = require("../models/assignment");
 const completedAssignment = require("../models/completed-assignment");
 const mongoose = require("mongoose");
 
-// ***************************************************
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "public/uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-// ***************************************************
-
 // ********** Cloud Upload ***********
 const {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
 } = require("@aws-sdk/client-s3");
-
-// delete this: not needed
-// const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -64,11 +48,12 @@ router.get("/login", check.isGuest, (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  const { firstName, lastName, username, password, type } = req.body;
+  const { firstName, lastName, username, email, password, type } = req.body;
   const NewUser = new User({
     username,
     firstName,
     lastName,
+    email,
     type,
   });
 
@@ -98,39 +83,70 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-router.get("/dash", check.isLoggedin, async (req, res) => {
-  if (req.user.type === "student") {
-    const completedAssignments = await CompletedAssignment.find({
-      completedBy: req.user._id,
-    })
-      .populate("parentAssignment")
-      .exec();
-
-    let ids = completedAssignments.map((ca) => {
-      return `${ca.parentAssignment._id}`;
+router.get("/profile", check.isLoggedin, async (req, res) => {
+  if (req.user) {
+    const user = await User.findOne({
+      _id: req.user._id,
     });
-
-    let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
-    res.render("dash", {
-      completedAssignments,
-      pendingAssignments,
+    // console.log(user);
+    // console.log(req.user._id);
+    res.render("profile", {
+      user,
     });
   } else {
-    res.render("t-dash");
+    res.redirect("/login");
   }
+});
+
+router.get("/dash", check.isLoggedin, async (req, res) => {
+  res.render("dash");
+});
+
+router.get("/dash-new", check.isLoggedin, async (req, res) => {
+  const completedAssignments = await CompletedAssignment.find({
+    completedBy: req.user._id,
+  })
+    .populate("parentAssignment")
+    .exec();
+
+  let ids = completedAssignments.map((ca) => {
+    return `${ca.parentAssignment._id}`;
+  });
+
+  let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
+  res.render("dash-new", {
+    pendingAssignments,
+  });
+});
+
+router.get("/dash-submitted", check.isLoggedin, async (req, res) => {
+  const completedAssignments = await CompletedAssignment.find({
+    completedBy: req.user._id,
+  })
+    .populate("parentAssignment")
+    .exec();
+
+  let ids = completedAssignments.map((ca) => {
+    return `${ca.parentAssignment._id}`;
+  });
+
+  let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
+  res.render("dash-submitted", {
+    completedAssignments,
+    pendingAssignments,
+  });
 });
 
 router.get("/aassignment/:id", async (req, res) => {
   const assignment = await Assignment.findOne({ _id: req.params.id });
 
-  // console.log(assignment);
   let fileName = assignment.fileURL.split("/")[1];
 
   const completedAssignment = await CompletedAssignment.findOne({
+    completedBy: req.user._id,
     parentAssignment: assignment._id,
   });
   let isSubmitted = false;
-  // console.log(completedAssignment);
 
   if (completedAssignment) {
     isSubmitted = true;
@@ -149,9 +165,6 @@ router.get("/aassignment/:id", async (req, res) => {
 });
 
 router.post("/project/submit/:id", upload.single("file"), async (req, res) => {
-  // console.log("req.body", req.body);
-  // console.log("req.file", req.file);
-
   let teacherId = await Assignment.findOne({ _id: req.params.id });
 
   // ****************************************************************
@@ -182,7 +195,7 @@ router.post("/project/submit/:id", upload.single("file"), async (req, res) => {
     completedBy: req.user._id,
   });
 
-  res.redirect("/dash");
+  res.redirect("/dash-submitted");
 });
 
 module.exports = router;
