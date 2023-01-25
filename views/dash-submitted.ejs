@@ -1,0 +1,23 @@
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
+
+<div class="container">
+  <div class="m-2 p-1 border-bottom text-center">
+    <h1>Your Submitted Assignments</h1>
+  </div>
+  <div class="row">
+    <% completedAssignments.forEach((assignment, i)=>{ %>
+    <div class="col-12 col-md-6 col-lg-4 pb-3">
+      <div class="card text-center h-100">
+        <img src="https://images.unsplash.com/photo-1497091071254-cc9b2ba7c48a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80" class="card-img-top" alt="assignemnt">
+        <div class="card-body">
+          <h5 class="card-title"><%= assignment.parentAssignment.title %></h5>
+          <p class="card-text"><%= assignment.parentAssignment.details %></p>
+          <a href="/aassignment/<%= assignment.parentAssignment._id %>" class="btn btn-primary">View</a>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+</div>
+<%- include('partials/footer')%>
