@@ -1,90 +1,48 @@
-  <!DOCTYPE html>
-  <html lang="en">
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/stylesheets/new.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+<div class="container d-flex flex-column">
+  <div class="text-center mt-4">
+    <% if(assignments.length > 0) {%>
+    <h2>Submissions for <%= assignments[0].parentAssignment.title %></h2>
+    <h3>Due date: <%= formatDate(assignments[0].parentAssignment.dueDate) %></h3>
+    <% } else {%>
+    <h2>No Submissions Yet</h2>
+    <% } %>
+  </div>
+  <hr>
 
-  </head>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Submitted By</th>
+        <th scope="col">Submitted File</th>
+        <th scope="col">Give Marks / out of</th>
+      </tr>
+    </thead>
+    <% if(assignments.length > 0) {%>
+    <tbody>
+      <% assignments.forEach((assignment, i)=>{ %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= assignment.completedBy.firstName + ' ' + assignment.completedBy.lastName %></td>
+        <td><a href="https://<%= assignment.completedFile %>" target="_blank"> Completed File </a></td>
+        <td>
+          <% if(assignment.givenMarks > 0){ %>
+          <%= assignment.givenMarks %>
+          <% }else{ %>
+          <form action="/admin/<%= assignment._id %>/givemarks" style="display: inline;" method="POST" /> <input type="number" min="1" max="<%= assignment.parentAssignment.marks %>" name="marks" required /> <input type="submit" value="submit"> </form>
+          <% } %> / <%= assignment.parentAssignment.marks %>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+    <% } %>
+  </table>
+</div>
+</div>
+</body>
 
-  <body>
 
-    <%- include('partials/nav')%>
-
-    <div class="header">
-      <h1>Submitted Assignments</h1>
-    </div>
-    <hr>
-    <div class="container">
-      <div class="table">
-        <table>
-          <div class="table-header">
-            <thead>
-              <tr>
-                <div class="header__item">
-                  <th>Sr.No</th>
-                </div>
-                <div class="header__item">
-                  <th>Title</th>
-                </div>
-                <div class="header__item">
-                  <th>Due Date</th>
-                </div>
-                <div class="header__item">
-                  <th>Student Name</th>
-                </div>
-                <div class="header__item">
-                  <th>Submitted File</th>
-                </div>
-                <div class="header__item">
-                  <th>Give Marks</th>
-                </div>
-            </thead>
-          </div>
-
-          <div class="table-content">
-            <tbody>
-              <div class="table-row">
-
-                <% assignments.forEach((assignment, i)=>{ %>
-                <tr>
-                  <div class="table-data">
-                    <td><%= i + 1 %></td>
-                  </div>
-                  <div class="table-data">
-                    <td><%= assignment.parentAssignment.title %></td>
-                  </div>
-                  <div class="table-data">
-                    <td><%= formatDate(assignment.parentAssignment.dueDate) %></td>
-                  </div>
-                  <div class="table-data">
-                    <td><%= assignment.completedBy.firstName + ' ' + assignment.completedBy.lastName %></td>
-                  </div>
-                  <div class="table-data">
-                    <td><a href="https://<%= assignment.completedFile %>"> Completed File </a></td>
-                  </div>
-                  <div class="table-data">
-                    <td>
-                      <% if(assignment.givenMarks > 0){ %>
-                      <%= assignment.givenMarks %>
-                      <% }else{ %>
-                      <form action="/admin/<%= assignment._id %>/givemarks" style="display: inline;" method="POST" /> <input type="number" min="1" max="<%= assignment.parentAssignment.marks %>" name="marks" required /> <input type="submit" value="submit"> </form>
-                      <% } %> / <%= assignment.parentAssignment.marks %>
-                    </td>
-                  </div>
-                </tr>
-                <% }); %>
-              </div>
-
-            </tbody>
-          </div>
-
-        </table>
-      </div>
-    </div>
-  </body>
-
-  </html>
+<%- include('partials/footer')%>

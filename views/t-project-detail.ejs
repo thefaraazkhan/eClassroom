@@ -1,38 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylesheets/style.css">
+<div class="container mt-4 d-flex justify-content-center ">
 
-  <title>Document</title>
-</head>
-
-<body>
-  <%- include('partials/nav')%>
-
-  <div class="container">
-    <div class="header">
-      <h1><%= assignment.title %></h1>
-    </div>
-    <div class="details">
-      <p>Detail: <%= assignment.details %></p>
-    </div>
-
-    <div class="reference">
-      <p>Reference: <a href="https://<%= assignment.fileURL %>" target="_blank"><%= fileName %></a></p>
-    </div>
-
-    <div class="due-date">
-      <p>Due Date: <%= formatDate(assignment.dueDate)  %></p>
-    </div>
-
-    <div class="mark">
-      <p>Marks: <%= assignment.marks %></p>
-    </div>
-
+  <div class="card col col-lg-6">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <h1><%= assignment.title %></h1>
+      </li>
+      <li class="list-group-item">
+        <strong>Details:</strong> <%= assignment.details %>
+      </li>
+      <li class="list-group-item">
+        <strong>Reference:</strong> <a href="https://<%= assignment.fileURL %>" target="_blank"><%= fileName %></a>
+      </li>
+      <li class="list-group-item">
+        <strong>Due Date:</strong> <%=  formatDate(assignment.dueDate) %>
+      </li>
+      <li class="list-group-item">
+        <strong>Marks:</strong> <%= assignment.marks %>
+      </li>
   </div>
-</body>
+</div>
 
-</html>
+<%- include('partials/footer')%>
