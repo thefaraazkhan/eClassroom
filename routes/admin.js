@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const Assignment = require("../models/assignment");
+const check = require("../middleware/check");
 const User = require("../models/user");
 const multer = require("multer");
 const path = require("path");
@@ -30,6 +31,10 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // ********** Cloud Upload ***********
+
+router.get("/t-dash", check.isLoggedin, async (req, res) => {
+  res.render("t-dash");
+});
 
 router.get("/addproject", (req, res) => {
   res.render("add-project");

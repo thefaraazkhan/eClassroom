@@ -73,7 +73,11 @@ router.post(
     failureRedirect: "/login",
   }),
   (req, res) => {
-    res.redirect("/dash");
+    if (req.user.type === "student") {
+      res.redirect("/dash");
+    } else {
+      res.redirect("/admin/t-dash");
+    }
   }
 );
 
